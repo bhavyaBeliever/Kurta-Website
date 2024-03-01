@@ -1,0 +1,202 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f0e6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #f7f0e6;
+    color: #fc5454;
+    text-align: center;
+    padding: 10px;
+}
+
+footer {
+    background-color: #444;
+    color: #fc5454;
+    text-align: center;
+    padding: 10px;
+}
+
+.title h1 {
+    font-size: 36px;
+}
+
+.title h3,
+.title p {
+    font-size: 18px;
+}
+
+.title a {
+    margin-left: 10px;
+}
+
+nav {
+    background-color: #444;
+    padding: 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+nav a:hover {
+    color: #90abc7; /* Set hover color for navigation links as needed */
+}
+
+a:hover {
+    color: #0056b3; /* Set hover color as needed */
+}
+
+
+.product {
+    border: 1px solid #000;
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    display: inline-block;
+    grid-template-rows: 1fr 1fr auto;
+    gap: 10px;
+    vertical-align: top; /* Align to the top */
+    transition: background-color 0.3s, box-shadow 0.3s;
+    
+}
+
+.product img {
+    width: 100%;
+}
+
+.product h2 {
+    font-size: 20px;
+    color: #000;
+    margin: 0;
+}
+
+.product p {
+    font-size: 16px;
+    color: #2af900c4;
+    margin: 0;
+}
+
+.product:hover {
+    background-color: #dbdada; /* Set hover background color as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Set hover box shadow as needed */
+}
+
+.product button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.product button:hover {
+    background-color: #0056b3;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    color: #90abc7; /* Set hover color for footer links as needed */
+}
+
+
+
+h4 {
+    margin: 5px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff; /* Set link color as needed */
+}
+
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff; /* Set form background color as needed */
+    border: 1px solid #ccc; /* Set form border color as needed */
+    border-radius: 5px;
+}
+
+form p {
+    margin: 10px 0;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"] {
+    background-color: #007bff; /* Set submit button background color as needed */
+    color: #fff; /* Set submit button text color as needed */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3; /* Set hover color for submit button as needed */
+}
+
+form hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc; /* Set hr color as needed */
+}
+
+form a {
+    color: #007bff; /* Set link color within form as needed */
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+
+h4 {
+    color: #555; /* Customize the color as needed */
+}
+
+a {
+    text-decoration: none;
+    color: #007bff; /* Customize the color as needed */
+}
+
+p {
+    line-height: 1.6;
+    color: #666; /* Customize the color as needed */
+    margin-bottom: 20px;
+}
+
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 img {
+    width: 150px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+h1 img, h1 span {
+    display: inline-block;
+    vertical-align: middle;
+}

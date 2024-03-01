@@ -1,0 +1,15 @@
+{% extends "users/layout.html" %}
+{% block body %}
+    <form action="{% url 'register' %}">
+        {% csrf_token %}
+        <input type="text" name = "username" placeholder="username">
+        <input type="text" name = "first_name" placeholder="first name">
+        <input type="text" name = "last_name" placeholder="last name">
+        <input type="email" name = "email" placeholder="Enter your Email-id">
+        <input type="password" name="password">
+        <input type="number" name="" id="">
+        <input type="submit" value="SignUp">
+    </form>
+    
+    
+{% endblock %}
