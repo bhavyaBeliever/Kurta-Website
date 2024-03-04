@@ -5,6 +5,8 @@ from django.db import models
 #     mobileNo=PhoneNumberField()
 class festival(models.Model):
     Type=models.CharField(max_length=50)
+    def __str__(self) -> str:
+        return f"{self.Type}"
 
 class Kurta(models.Model):
     fest = models.ForeignKey(festival, on_delete=models.CASCADE, related_name="kurtas")

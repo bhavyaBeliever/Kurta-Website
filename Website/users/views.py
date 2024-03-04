@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-
+from .models import Kurta
 # Create your views here.
 def login_view(request):
     if request.method == "POST":
@@ -25,7 +25,9 @@ def register(request):
     return render(request, "users/register.html")
 
 def home(request):
-    return render(request, 'users/home.html')
+    return render(request, 'users/home.html', context={
+        "Kurtas":Kurta.objects.all(),
+    })
 
 def product(request, product_label):
     return render(request, 'users/product.html', {
