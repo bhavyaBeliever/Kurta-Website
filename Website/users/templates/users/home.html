@@ -1,11 +1,13 @@
 {% extends 'users/layout.html' %}
 {% block body %}
 {% load static %}
-<div class="product">
-    <img src="{%static "users/kurta1.jpg"%}" alt="Kurta1">
-    <h2>Kurta 1</h2>
-    <p>Price: $50</p>
-    <button>Add to Cart</button>
-    <button>Buy Now</button>
-</div>
+<a href="product.html">
+    <div class="product">
+        <img src="{%static "users/kurta1.jpg"%}" alt="Kurta1">
+        <h2>Kurta 1</h2>
+        <p>Price: $50</p>
+        <button>Add to Cart</button>
+        <button>Buy Now</button>
+    </div>
+</a>
 {% endblock %}
