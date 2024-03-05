@@ -53,25 +53,24 @@ a:hover {
 
 
 .product {
-    border: 1px solid #000;
     margin: 10px;
-    padding: 10px;
-    width: 200px;
+    padding: 2.5%;
+    width: 20%;
     display: inline-block;
     grid-template-rows: 1fr 1fr auto;
     gap: 10px;
     vertical-align: top; /* Align to the top */
-    transition: background-color 0.3s, box-shadow 0.3s;
-    
+    transition: background-color 0.3s, box-shadow 0.3s;    
 }
 
 .product img {
     width: 100%;
+    border-radius: 30px;
 }
 
 .product h2 {
     font-size: 20px;
-    color: #000;
+    color: #130228;
     margin: 0;
 }
 
@@ -87,15 +86,16 @@ a:hover {
 }
 
 .product button {
-    background-color: #007bff;
+    background-color: #aa0927;
     color: #fff;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    display: block;
 }
 
 .product button:hover {
-    background-color: #0056b3;
+    background-color: #a3b7cd2b;
 }
 
 footer a {

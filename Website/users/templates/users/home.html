@@ -4,11 +4,11 @@
 {% for kurta in Kurtas %}
     <a href="product.html">
         <div class="product">
-            <img src="{{kurta.image.url}}" alt="Kurta1">
+            <img src="{{ kurta.image.url }}" alt="Kurta1">
             <h2>{{kurta.name}}</h2>
             <p>Price: {{kurta.price}}</p>
-            <button>Add to Cart</button>
-            <button>Buy Now</button>
+            <a href="#"><button>Add to Cart</button></a>
+            <a href="#"><button>Buy Now</button></a>
         </div>
     </a>
 {% endfor %}
