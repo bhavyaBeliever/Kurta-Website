@@ -9,7 +9,7 @@ class festival(models.Model):
         return f"{self.Type}"
 
 class Kurta(models.Model):
-    fest = models.ForeignKey(festival, on_delete=models.CASCADE, related_name="kurtas")
+    Occasion = models.ForeignKey(festival, on_delete=models.CASCADE, related_name="kurtas")
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Use DecimalField for price to handle cents/dollars
     color = models.CharField(max_length=50)
     name = models.CharField(max_length=100)  # Increased max_length for the name
@@ -18,8 +18,8 @@ class Kurta(models.Model):
     stock = models.PositiveIntegerField(default=0)  # Track available stock
     created_at = models.DateTimeField(auto_now_add=True)  # Track creation date/time
     updated_at = models.DateTimeField(auto_now=True)  # Track last update date/time
-    pattern=models.CharField(max_length=50)
-    cloth=models.CharField(max_length=50)
+    fabric=models.CharField(max_length=50)
+    design=models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.name} - {self.color} - ${self.price} ({self.get_size_display()})"
