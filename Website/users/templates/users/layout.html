@@ -12,7 +12,7 @@
     <header>
         <h1><img src="{%static 'users/logo.png'%}" width="150px">Lifestyle Men's</h1>
         <h4>Discover the latest trends in Kurtas</h4>
-        <p style="position: absolute; top: 0; right: 0;"><a href="login.html">Login</a> <a href="register.html">Register</a></p>
+        <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p>
     <a href="{% url 'home' %}">Home</a>
     <nav>
         <p><a href="#">Shop by Design</a>    <a href="#">Shop by Fabric</a>     <a href="#">Shop by Occasion</a></p>

@@ -18,8 +18,8 @@ class Kurta(models.Model):
     stock = models.PositiveIntegerField(default=0)  # Track available stock
     created_at = models.DateTimeField(auto_now_add=True)  # Track creation date/time
     updated_at = models.DateTimeField(auto_now=True)  # Track last update date/time
-    fabric=models.CharField(max_length=50)
-    design=models.CharField(max_length=50)
+    fabric=models.CharField(max_length=50, default="")
+    design=models.CharField(max_length=50, default="")
 
     def __str__(self):
         return f"{self.name} - {self.color} - ${self.price} ({self.get_size_display()})"

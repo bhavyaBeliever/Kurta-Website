@@ -3,9 +3,9 @@
 {% block body %}
 <div>
     <div class="product-info">
-        <img class="image-container" src="{% static 'users/kurta1.jpg' %}" alt="Product Image" >
+        <img class="image-container" src="{{kurta.image.url}}" alt="Product Image" >
         <div class="description-container">
-            <h1>Kurta 1</h1>
+            <h1>{{kurta.name}}</h1>
             <select id="size" name="size">
                 <option value="s">S</option>
                 <option value="m">M</option>
@@ -16,7 +16,9 @@
             <label for="quantity">Quantity:</label>
             <input type="number" id="quantity" name="quantity" value="1" min="1">
             <p class="description">Elegant kurta with intricate design patterns. Perfect for both casual and formal occasions.</p>
-            <p>Price: $XX.XX</p>
+            <p>Price: {{ kurta.price }}</p>
+            <p>Fabric: {{ kurta.fabric }}</p>
+            <p>Design: {{kurta.design}}</p>
             <button>Add to Cart</button>
             <button>Buy Now</button>
         </div>

@@ -30,6 +30,11 @@ def home(request):
     })
 
 def product(request, product_label):
-    return render(request, 'users/product.html', {
-        "product_label":product_label
-    })
+    try:
+        kurta = Kurta.objects.get(name=product_label)
+        return render(request, 'users/product.html', {
+            "kurta":kurta,
+        })
+    except Kurta.DoesNotExist:
+        # Handle the case where no Kurta with the specified name is found
+        return render(request, "users/NotFound.html")

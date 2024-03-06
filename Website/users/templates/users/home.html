@@ -2,7 +2,7 @@
 {% block body %}
 {% load static %}
 {% for kurta in Kurtas %}
-    <a href="product.html">
+    <a href="{% url 'product_label' kurta.name %}">
         <div class="product">
             <img src="{{ kurta.image.url }}" alt="Kurta1">
             <h2>{{kurta.name}}</h2>
