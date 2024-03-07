@@ -1,4 +1,9 @@
 {% extends "users/layout.html" %}
+
+{% block nav %}
+
+{% endblock %}
+
 {% block body %}
 
 <form action="{% url 'login' %}" method="post">
@@ -15,3 +20,8 @@
     <p><a href="{% url 'register'%}">Register</a></p>
 </form>
 {% endblock %}
+
+
+
+
+

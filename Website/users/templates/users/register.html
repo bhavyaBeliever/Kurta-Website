@@ -1,4 +1,7 @@
 {% extends "users/layout.html" %}
+{% block nav %}
+    <a href="{% url 'home' %}">Home</a>
+{% endblock %}
 {% block body %}
     <form action="{% url 'register' %}">
         {% csrf_token %}

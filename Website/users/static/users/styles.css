@@ -38,9 +38,12 @@ nav {
 }
 
 nav a {
-    color: #fff;
+    color: #f65a5a;
     text-decoration: none;
     margin-right: 10px;
+}
+nav p{
+    color: #f65a5a;
 }
 
 nav a:hover {
@@ -54,11 +57,11 @@ a:hover {
 
 .product {
     margin: 10px;
-    padding: 2.5%;
+    padding: 35px;
     width: 20%;
     display: inline-block;
     grid-template-rows: 1fr 1fr auto;
-    gap: 10px;
+    gap: 8px;
     vertical-align: top; /* Align to the top */
     transition: background-color 0.3s, box-shadow 0.3s;    
 }
@@ -76,22 +79,27 @@ a:hover {
 
 .product p {
     font-size: 16px;
-    color: #2af900c4;
+    color: #000000c4;
     margin: 0;
 }
 
 .product:hover {
     background-color: #dbdada; /* Set hover background color as needed */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Set hover box shadow as needed */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* Set hover box shadow as needed */
+    padding: auto;
+    border-radius: 20px;
 }
 
 .product button {
     background-color: #aa0927;
     color: #fff;
     border: none;
-    padding: 5px 10px;
+    padding: 5px 5px;
     cursor: pointer;
-    display: block;
+    border-radius: 5px;
+    font-size: large;
+    size: auto;
+    
 }
 
 .product button:hover {
@@ -212,13 +220,7 @@ h1 img, h1 span {
     font-size: large;
 }
 
-/* Image container */
-.image-container {
-    flex:0.5;
-    z-index: 1; /* Ensure image remains visible */
-    border-radius:50px;
-    height: auto;
-}
+
 
 
 
@@ -236,42 +238,57 @@ h1 img, h1 span {
 }
 
 /* Product description */
+/* Product price */
+.product-info p.price {
+    font-size: 30px; 
+    color: #25272a; 
+    font-weight: bold;  
+}
 .product-info p {
     font-size: large; /* Adjust font size as needed */
     color: #666; /* Adjust text color as needed */
     margin-bottom: 10px; /* Adjust margin as needed */
 }
 
-/* Product price */
-.product-info p.price {
-    font-size: 18px; 
-    color: #007bff; 
-    font-weight: bold;  
-}
+
 
 /* Add to cart button */
 .product-info button {
     background-color:red;
-    color: darkred;
+    color: rgb(0, 0, 0);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: large;
+    size: auto;
 }
 
 .product-info button:hover {
-    background-color: #0056b3; /* Set hover color as needed */
+    background-color:   #b90909; /* Set hover color as needed */
 }
 .product-info select{
-    width: 80px;
-    height: 50px;
+    width: 60px;
+    height: 30px;
     font-size: large;
+    text-align: center;
 }
 .product-info input[type=number]{
-    width: 70px;
-    height: 50px;
+    width: 60px;
+    height: 30px;
     font-size: large;
     text-align: center;    
 }
 
+.image-container {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    width: 100%; /* Ensure the image takes the full width of its container */
+    max-width: 1200px; /* Set the maximum width of the image */
+    margin-bottom: 15px;
+    flex:0.25;
+    z-index:0.5; /* Ensure image remains visible */
+    border-radius:50px;
+}

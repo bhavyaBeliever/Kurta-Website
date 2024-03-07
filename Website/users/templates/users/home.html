@@ -1,14 +1,17 @@
 {% extends 'users/layout.html' %}
-{% block body %}
 {% load static %}
+{% block nav %}
+    <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p>
+    <p><a href="#">Shop by Design</a>    <a href="#">Shop by Fabric</a>     <a href="#">Shop by Occasion</a></p>
+{% endblock %}
+{% block body %}
 {% for kurta in Kurtas %}
     <a href="{% url 'product_label' kurta.name %}">
         <div class="product">
             <img src="{{ kurta.image.url }}" alt="Kurta1">
             <h2>{{kurta.name}}</h2>
             <p>Price: {{kurta.price}}</p>
-            <a href="#"><button>Add to Cart</button></a>
-            <a href="#"><button>Buy Now</button></a>
+            <p><a href="#"><button>Add to Cart</button></a>  <a href="#"><button>Buy Now</button></a></p>
         </div>
     </a>
 {% endfor %}

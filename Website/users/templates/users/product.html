@@ -1,11 +1,18 @@
 {% extends "users/layout.html" %}
 {% load static %}
+{% block nav %}
+    <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p>
+    <a href="{% url 'home' %}" style="text-align: left;">Home</a>
+    <p><a href="#">Shop by Design</a>    <a href="#">Shop by Fabric</a>     <a href="#">Shop by Occasion</a></p>
+{% endblock %}
+
 {% block body %}
 <div>
     <div class="product-info">
-        <img class="image-container" src="{{kurta.image.url}}" alt="Product Image" >
+        <img class="image-container"  src="{{kurta.image.url}}" alt="Product Image" >
         <div class="description-container">
             <h1>{{kurta.name}}</h1>
+            <label for="size">Size:</label>
             <select id="size" name="size">
                 <option value="s">S</option>
                 <option value="m">M</option>
