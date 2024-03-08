@@ -1,0 +1,8 @@
+__pycache__/
+.idea/
+.vscode/
+*.swp
+
+# Dependency directories
+venv/
+node_modules/
