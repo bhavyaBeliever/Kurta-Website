@@ -27,19 +27,30 @@ def register(request):
     return render(request, "users/register.html")
 
 def home(request):
-    if request.user.is_authenticated:
-        return render(request, 'users/home.html', context={
+    
+    return render(request, 'users/home.html', context={
             "Kurtas":Kurta.objects.all(),
             "userName":request.user.username
             })
-    return render(request, 'users/home.html', context={
-        "Kurtas":Kurta.objects.all(),
-    })
+   
     
 
-def product(request, product_label):
+def product(request, kurta_id):
     try:
-        kurta = Kurta.objects.get(name=product_label)
+        kurta = Kurta.objects.get(id=kurta_id)
+        if request.method=='POST':
+            if not request.user.is_authenticated:
+                return redirect('login')
+            action=request.POST.get("action")
+            print(action)
+            if action=="Add-to-Cart":   
+                print("Inside Post")
+                cart_item, created=CartItem.objects.get_or_create(user=request.user,kurta=kurta)
+                if not created:
+                    cart_item.kurta.quantity+=1
+                    cart_item.save()
+            return redirect('Cart', username=request.user.username)
+       
         return render(request, 'users/product.html', {
             "kurta":kurta,
         })
@@ -52,7 +63,7 @@ def Cart(request, username):
         cart_items = CartItem.objects.filter(user__username=username)
     
         kurta_list = [cart_item.kurta for cart_item in cart_items]
-        return render(request,"users/addToCart.html", {
+        return render(request,"users/ViewCart.html", {
             "kurtas":kurta_list,
         })
     

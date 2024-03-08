@@ -3,9 +3,14 @@
 
 {% block body %}
     {% for kurta in kurtas %}
-        <img src="{{ kurta.image.url }}" alt="Kurta1">
-        {{ kurta.name }}
-        {{ kurta.price }}
-        <button>Buy Now</button>
+        <div class="CartBox">
+            <img src="{{ kurta.image.url }}" alt="Kurta1">
+            <div class="CartContent">
+                <h5>Name:{{ kurta.name }}</h5>
+                <h5>Price:{{ kurta.price }}</h5>
+                <h5>Quantity:{{ kurta.quantity }}</h5>
+                <button>Buy Now</button>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block nav %}
-    <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p>
+    <!-- <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p> -->
     <p><a href="#">Shop by Design</a>    <a href="#">Shop by Fabric</a>     <a href="#">Shop by Occasion</a></p>
 {% endblock %}
 {% block body %}
@@ -12,7 +12,7 @@
 {% endif %}
     {% for kurta in Kurtas %}
 
-    <a href="{% url 'product_label' kurta.name %}">
+    <a href="{% url 'product' kurta_id=kurta.id %}">
         <div class="product">
             <img src="{{ kurta.image.url }}" alt="Kurta1">
             <h2>{{kurta.name}}</h2>

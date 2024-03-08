@@ -282,7 +282,7 @@ h1 img, h1 span {
 }
 
 .image-container {
-    max-width: 100%;
+   
     height: auto;
     display: block;
     width: 100%; /* Ensure the image takes the full width of its container */
@@ -291,4 +291,20 @@ h1 img, h1 span {
     flex:0.25;
     z-index:0.5; /* Ensure image remains visible */
     border-radius:50px;
+}
+.CartBox {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 20px; /* Add margin between each .CartBox */
+}
+.CartBox img {
+    max-width: 100px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px; /* Add space between image and content */
+}
+.CartContent {
+    flex: 1; /* Take up remaining space */
+}
+.CartContent h5 {
+    margin: 0; /* Remove default margin */
 }

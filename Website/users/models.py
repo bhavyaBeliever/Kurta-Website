@@ -21,6 +21,7 @@ class Kurta(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # Track last update date/time
     fabric=models.CharField(max_length=50)
     design=models.CharField(max_length=50)
+    quantity=models.IntegerField(default=1)
 
     def __str__(self):
         return f"{self.name} - {self.color} - ${self.price} ({self.get_size_display()})"
@@ -31,7 +32,6 @@ class Kurta(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     kurta = models.ForeignKey(Kurta, on_delete=models.CASCADE)
-    
     def __str__(self):
         return f"{self.user.username}'s Cart - {self.kurta.name}"
   

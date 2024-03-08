@@ -26,9 +26,18 @@
             <p>Price: {{ kurta.price }}</p>
             <p>Fabric: {{ kurta.fabric }}</p>
             <p>Design: {{kurta.design}}</p>
-            <button>Add to Cart</button>
-            <button>Buy Now</button>
-        </div>
+            <form action="{% url 'product' kurta_id=kurta.id %}", method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="Add-to-Cart">
+                <button type="submit">Add to Cart</button>
+
+            <form action="{% url 'product' kurta_id=kurta.id %}", method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="Buy Now">
+                <button type="submit">Buy Now</button>
+
+            </form>
+            </div>
     </div>
 </div>
 {% endblock %}
