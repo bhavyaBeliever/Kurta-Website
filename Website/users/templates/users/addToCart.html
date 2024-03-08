@@ -1,0 +1,11 @@
+{% extends "users/layout.html" %}
+{% load static %}
+
+{% block body %}
+    {% for kurta in kurtas %}
+        <img src="{{ kurta.image.url }}" alt="Kurta1">
+        {{ kurta.name }}
+        {{ kurta.price }}
+        <button>Buy Now</button>
+    {% endfor %}
+{% endblock %}

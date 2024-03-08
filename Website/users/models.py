@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 # class User(models.Model):
@@ -18,8 +19,8 @@ class Kurta(models.Model):
     stock = models.PositiveIntegerField(default=0)  # Track available stock
     created_at = models.DateTimeField(auto_now_add=True)  # Track creation date/time
     updated_at = models.DateTimeField(auto_now=True)  # Track last update date/time
-    fabric=models.CharField(max_length=50, default="")
-    design=models.CharField(max_length=50, default="")
+    fabric=models.CharField(max_length=50)
+    design=models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.name} - {self.color} - ${self.price} ({self.get_size_display()})"
@@ -27,5 +28,10 @@ class Kurta(models.Model):
     class Meta:
         verbose_name_plural = "Kurtas"
 
+class CartItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    kurta = models.ForeignKey(Kurta, on_delete=models.CASCADE)
     
-
+    def __str__(self):
+        return f"{self.user.username}'s Cart - {self.kurta.name}"
+  
