@@ -7,9 +7,7 @@
 {% endblock %}
 {% block body %}
 
-{% if request.user.is_authenticated %}
-    <a href="{% url 'Cart' username=userName %}">View Cart</a>
-{% endif %}
+
     {% for kurta in Kurtas %}
 
     <a href="{% url 'product' kurta_id=kurta.id %}">

@@ -8,6 +8,7 @@ urlpatterns=[
     path("",views.home, name="home"),
     path("kurtas/<str:kurta_id>", views.product, name="product"),
     path("<str:username>/myCart", views.Cart, name="Cart"), 
+    path("<str:username>/Buy-Now", views.BuyNow, name="BuyNow"),
     path("logout/", views.logout_view, name='logout')
        
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

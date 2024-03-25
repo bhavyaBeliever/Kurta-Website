@@ -5,15 +5,16 @@
 {% block body %}
     
 
-    <form action="{% url 'register' %}">
+    <form action="{% url 'register' %}" method="post" >
         {% csrf_token %}
-        <p>Name :<input type="text" name = "First Name" placeholder="first name"><input type="text" name = "Last Name" placeholder="last name"></p>
-        <p>Number : <input type="number" name="phone" required></p>
+        <!-- <p>Name :<input type="text" name = "First Name" placeholder="first name"><input type="text" name = "Last Name" placeholder="last name"></p>
+        <p>Number : <input type="numbeHomer" name="phone" required></p>
         <p>E-mail : <input type="email" name="email" required></p>
         <br>
         <p>Username : <input type="text" name="username" required></p>
         <p>Password : <input type="password" name="password" required></p>
-        <p>Confirm Password : <input type="password" name="password" required></p>
+        <p>Confirm Password : <input type="password" name="password" required></p> -->
+        {{ form.as_p }}
 
         <input type="submit" value="Register">
         <hr>
