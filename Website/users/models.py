@@ -63,8 +63,8 @@ class Kurta(models.Model):
         verbose_name_plural = "Kurtas"
 
 class CartItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    kurta = models.ForeignKey(Kurta, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="users")
+    kurta = models.ForeignKey(Kurta, on_delete=models.CASCADE, related_name="kurta")
     size=models.CharField(default='s', max_length=3)
     quantity=models.IntegerField(default=1)
     def __str__(self):

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
 
 from django.urls import reverse
-from .models import Kurta, CartItem 
+from .models import Kurta, CartItem
 
 def login_view(request):
     if request.method == "POST":
