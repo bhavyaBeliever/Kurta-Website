@@ -84,7 +84,7 @@ def home(request):
         
         if request.POST['action']=="design":
             ids=[]
-            for design in models.Design.all():
+            for design in models.Design.objects.all():
                 if request.POST[str(design.id)]=="true":
                     ids.append(fabric.id)
             kurtas=get_kurtas_by_design_ids(ids)
@@ -98,7 +98,7 @@ def home(request):
                 })
         if request.POST['action']=="color":
             ids=[]
-            for color in models.Color.all():
+            for color in models.Color.objects.all():
                 if request.POST[str(color.id)]=="true":
                     ids.append(fabric.id)
             kurtas=get_kurtas_by_color_ids(ids)
@@ -112,7 +112,7 @@ def home(request):
                 })
         if request.POST['action']=="Occasion":
             ids=[]
-            for occasion in models.festival.all():
+            for occasion in models.festival.objects.all():
                 if request.POST[str(occasion.id)]=="true":
                     ids.append(occasion.id)
             kurtas=get_kurtas_by_occasions_ids(ids)
