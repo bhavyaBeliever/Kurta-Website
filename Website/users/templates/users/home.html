@@ -3,20 +3,98 @@
 
 {% block nav %}
     <!-- <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p> -->
-    <p><a href="#">Shop by Design</a>    <a href="#">Shop by Fabric</a>     <a href="#">Shop by Occasion</a></p>
+
 {% endblock %}
 {% block body %}
+<div style="display: flex;">
+    <form action="{% url 'home' %}" class="left-box" method="post">
+        {% csrf_token %}
+        <h5>Shop by Fabric</h5>
+
+        <input type="hidden" name="action" value="fabric">
+        <ul style="font-size: 12px;">
+            {% for fabric in fabrics %}
+           
+            
+            <li style="list-style: none;">
+                <input type="hidden" name="{{fabric.id}}" value="false">
+                <input type="checkbox" name="{{fabric.id}}" value="true" style="display: block-inline;">
+                
+                {{fabric}}
+            </li>
+            {% endfor %}
+            <button type="submit">apply</button>
+
+        </ul>
+        <h5>Shop by Design</h5>
+
+        <input type="hidden" name="action" value="fabric">
+        <ul style="font-size: 12px;">
+            {% for design in Design %}
+           
+                <li style="list-style: none;">  
+                    <input type="hidden" name="{{design.id}}" value="false">
+                    <input type="checkbox" name="{{design.id}}" value="true" style="display: block-inline;">
+         
+                    {{design}}
+                </li>
+            {% endfor %}
+            <button type="submit">apply</button>
+
+        </ul>
+
+        <h5>Shop by Color</h5>
+
+        <input type="hidden" name="action" value="color">
+        <ul style="font-size: 12px;">
+            {% for color in colors %}
+           
+            
+            <li style="list-style: none;">
+            <input type="hidden" name="{{color.id}}" value="false">
+                <input type="checkbox" name="{{color.id}}" value="true" style="display: block-inline;">
+         
+                {{color}}
+            </li>
+            {% endfor %}
+            <button type="submit">apply</button>
+
+        </ul>
+
+        <h5>Shop by Occasion</h5>
+
+        <input type="hidden" name="action" value="fabric">
+        <ul style="font-size: 12px;">
+            {% for occ in Occasion %}
+           
+            
+            <li style="list-style: none;">
+            <input type="hidden" name="{{occ.id}}" value="false">
+                <input type="checkbox" name="{{occ.id}}" value="true" style="display: block-inline;">
+         
+                {{occ}}
+            </li>
+            {% endfor %}
+            <button type="submit">apply</button>
+
+        </ul>
 
 
-    {% for kurta in Kurtas %}
 
-    <a href="{% url 'product' kurta_id=kurta.id %}">
-        <div class="product">
-            <img src="{{ kurta.image.url }}" alt="Kurta1">
-            <h2>{{kurta.name}}</h2>
-            <p>Price: {{kurta.price}}</p>
-            <p><a href="#"><button>Add to Cart</button></a>  <a href="#"><button>Buy Now</button></a></p>
-        </div>
-    </a>
-{% endfor %}
-{% endblock %}
+    </form>
+    <div class="right-box">
+
+        {% for kurta in Kurtas %}
+        
+        <a href="{% url 'product' kurta_id=kurta.id %}">
+            <div class="product">
+                <img src="{{ kurta.main_image.url }}" alt="Kurta1">
+                <h2>{{kurta.name}}</h2>
+                <p>Price: {{kurta.price}}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    </div>
+        {% endblock %}

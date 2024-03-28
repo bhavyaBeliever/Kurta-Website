@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User,AbstractUser, Group, Permission
+from django.contrib.postgres.fields import JSONField
 
 class CustomUser(AbstractUser):
     phone_no=models.CharField(max_length=12, null=True)
@@ -7,18 +8,36 @@ class festival(models.Model):
     Type=models.CharField(max_length=50)
     def __str__(self) -> str:
         return f"{self.Type}"
+class Fabric(models.Model):
+    material=models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return f"{self.material}"
 
+class Color(models.Model):
+    colour=models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return f"{self.colour}"
+
+class Design(models.Model):
+    Texture=models.CharField(max_length=20)
+    def __str__(self) -> str:
+        return f"{self.Texture}"
 
 class Kurta(models.Model):
-    Occasion = models.ForeignKey(festival, on_delete=models.CASCADE, related_name="Fest")
-    price = models.DecimalField(max_digits=10, decimal_places=2) 
-    color = models.CharField(max_length=50)
     name = models.CharField(max_length=100)  # Increased max_length for the name
-    image = models.ImageField(upload_to='kurta_images/')  # Specify upload path for images
+    price = models.DecimalField(max_digits=10, decimal_places=2) 
+    main_image = models.ImageField(upload_to='kurta_images/', null=True)  # Specify upload path for imagesmaterial
+    zoom = models.ImageField(upload_to='kurta_images/', null=True)  # Specify upload path for imagesmaterial
+    back = models.ImageField(upload_to='kurta_images/', null=True)  # Specify upload path for imagesmaterial
+    
+    Occasion = models.ForeignKey(festival, on_delete=models.CASCADE, related_name="Fest")
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, related_name="color")
+    fabric=models.ForeignKey(Fabric, on_delete=models.CASCADE) 
+    design=models.ForeignKey(Design, on_delete=models.CASCADE, related_name="design")
+     
     created_at = models.DateTimeField(auto_now_add=True)  # Track creation date/time
     updated_at = models.DateTimeField(auto_now=True)  # Track last update date/time
-    fabric=models.CharField(max_length=50)
-    design=models.CharField(max_length=50)
+
     s=models.IntegerField(default=1)# stock of respective size
     m=models.IntegerField(default=1)# stock of respective size
     l=models.IntegerField(default=1)# stock of respective size
