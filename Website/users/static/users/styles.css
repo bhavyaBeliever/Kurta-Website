@@ -93,7 +93,7 @@ nav ul i {
 .product {
     margin: 10px;
     padding: 35px;
-    width: 33%;
+    width: 30%;
     display: inline-block;
     grid-template-rows: 1fr 1fr auto;
     gap: 8px;
@@ -103,7 +103,9 @@ nav ul i {
 }
 
 .product img {
+    object-fit: cover;
     width: 100%;
+    height: 300px;
     border-radius: 30px;
 }
 
@@ -356,7 +358,7 @@ h1 span {
     max-width: 1200px;
     /* Set the maximum width of the image */
     margin-bottom: 15px;
-    flex: 0.25;
+    flex: 0.8;
     z-index: 0.5;
     /* Ensure image remains visible */
     border-radius: 50px;
@@ -415,7 +417,7 @@ h1 span {
     align-items: center;
     padding: 25px;
     min-height: 100vh;
-    background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
+    
 }
 
 .container form {

@@ -5,7 +5,7 @@
     {% for cart_item in cartView %}
     <a href="{% url 'product' kurta_id=cart_item.kurta.id %}">
         <div class="CartBox">
-            <img src="{{ cart_item.kurta.image.url }}" alt="Kurta1">
+            <img src="{{ cart_item.kurta.main_image.url }}" alt="Kurta1">
             <div class="CartContent">
                 <h5>Name:{{ cart_item.kurta.name }}</h5>
                 <h5>Price:{{ cart_item.kurta.price }}</h5>

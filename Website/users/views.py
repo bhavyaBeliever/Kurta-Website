@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
+from datetime import date, timedelta
 
 from django.urls import reverse
 from . import models
@@ -67,67 +68,31 @@ def register(request):
 
 def home(request):
     if request.method=='POST':
-        if request.POST['action']=="fabric":
-            ids=[]
-            for fabric in models.Fabric.objects.all():
-                if request.POST[str(fabric.id)]=="true":
-                    ids.append(fabric.id)
-            kurtas=get_kurtas_by_fabric_ids(ids)
-            return render(request, 'users/home.html', context={
-                "Kurtas":kurtas,
-                "userName":request.user.username,
-                "fabrics":models.Fabric.objects.all(),
-                "colors": models.Color.objects.all(),
-                "Design":models.Design.objects.all(),
-                "Occasion":models.festival.objects.all(),
-                })
-        
-        if request.POST['action']=="design":
-            ids=[]
-            for design in models.Design.objects.all():
-                if request.POST[str(design.id)]=="true":
-                    ids.append(fabric.id)
-            kurtas=get_kurtas_by_design_ids(ids)
-            return render(request, 'users/home.html', context={
-                "Kurtas":kurtas,
-                "userName":request.user.username,
-                "fabrics":models.Fabric.objects.all(),
-                "colors": models.Color.objects.all(),
-                "Design":models.Design.objects.all(),
-                "Occasion":models.festival.objects.all(),
-                })
-        if request.POST['action']=="color":
-            ids=[]
-            for color in models.Color.objects.all():
-                if request.POST[str(color.id)]=="true":
-                    ids.append(fabric.id)
-            kurtas=get_kurtas_by_color_ids(ids)
-            return render(request, 'users/home.html', context={
-                "Kurtas":kurtas,
-                "userName":request.user.username,
-                "fabrics":models.Fabric.objects.all(),
-                "colors": models.Color.objects.all(),
-                "Design":models.Design.objects.all(),
-                "Occasion":models.festival.objects.all(),
-                })
-        if request.POST['action']=="Occasion":
-            ids=[]
-            for occasion in models.festival.objects.all():
-                if request.POST[str(occasion.id)]=="true":
-                    ids.append(occasion.id)
-            kurtas=get_kurtas_by_occasions_ids(ids)
-            return render(request, 'users/home.html', context={
-                "Kurtas":kurtas,
-                "userName":request.user.username,
-                "fabrics":models.Fabric.objects.all(),
-                "colors": models.Color.objects.all(),
-                "Design":models.Design.objects.all(),
-                "Occasion":models.festival.objects.all(),
-                })
+        kurtas=models.Kurta.objects.all()
+        fabrics=request.POST.getlist('fabric[]')
+        if fabrics != []:                
+            kurtas=kurtas.filter(fabric__in=fabrics)
+        designs=request.POST.getlist('design[]')
+        if designs != []:            
+            kurtas=kurtas.filter(design__in=designs)
+        colors=request.POST.getlist('color[]')
+        if colors != []:
+            kurtas=kurtas.filter(color__in=colors)
+    
+        Occasions=request.POST.getlist('occ[]')
+        if Occasions != []:
+            kurtas=kurtas.filter(Occasion__in=Occasions)
+        return render(request, 'users/home.html', context={
+            "Kurtas":kurtas,
+            "userName":request.user.username,
+            "fabrics":models.Fabric.objects.all(),
+            "colors": models.Color.objects.all(),
+            "Design":models.Design.objects.all(),
+            "Occasion":models.festival.objects.all(),
+        })
 
     else:
         kurtas=models.Kurta.objects.all()
-        print(models.Color.objects.all())
         return render(request, 'users/home.html', context={
             "Kurtas":kurtas,
             "userName":request.user.username,
@@ -148,7 +113,7 @@ def product(request, kurta_id):
             if not request.user.is_authenticated:
                 return redirect('login')
             action=request.POST.get("action")
-            print(action)
+            
             if action=="Add-to-Cart":  
                 size=request.POST["size"] 
                 print("Inside Post")
@@ -199,8 +164,28 @@ def Cart(request, username):
 def logout_view(request):
     logout(request)
     return redirect('home')
+def getDeliveryDate():
+    today = date.today()
+    today_weekday = today.weekday()
+    day_names = {0: "Monday",1: "Tuesday",2: "Wednesday",3: "Thursday",4: "Friday",5: "Saturday",6: "Sunday",}
+    today_day = day_names[today_weekday]
+    future_date = today + timedelta(days=4)
+    future_weekday = future_date.weekday()
+    future_day = day_names[future_weekday]
+
+    return future_date, future_day
+
 def BuyNow(request, username):
     cartList=models.CartItem.objects.filter(user=request.user)
+    subtotal=0
+    for items in cartList:
+        subtotal+=items.quantity*items.kurta.price
+    shipping_date, shipping_day=getDeliveryDate()
     return render(request, "users/BuyNow.html", {
         "cart_list":cartList,
+        "sub_total":subtotal,
+        "sdate":shipping_date,
+        "sday":shipping_day,
+        "ship_price":40,
+        "total":40+subtotal,
     })
