@@ -8,4 +8,4 @@ admin.site.register(models.CustomUser)
 admin.site.register(models.Color)
 admin.site.register(models.Design)
 admin.site.register(models.Fabric)
-
+admin.site.register(models.Orders)

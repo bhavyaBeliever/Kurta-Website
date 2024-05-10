@@ -14,15 +14,17 @@
                     {% csrf_token %}
                     <input type="hidden" name="remove" value="remove">
                     <input type="hidden" name="kurta_id" value="{{cart_item.kurta.id}}">
-                    <button>Remove</button>
+                    <button class="btn" >Remove</button>
                 </form>
             </div>
         </div>
     </a>
     {% endfor %}
+    {% if cartView %}
         <a href="{% url 'BuyNow' username=request.user.username %}">
 
-            <button name="Buy-Now" value="BuyNow">Buy Now</button>
+            <button name="Buy-Now" value="BuyNow" class="btn">Buy Now</button>
         </a>
+    {% endif %}
         
 {% endblock %}

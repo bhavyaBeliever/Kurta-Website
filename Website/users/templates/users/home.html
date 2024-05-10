@@ -2,8 +2,6 @@
 {% load static %}
 
 {% block nav %}
-<!-- <p style="position: absolute; top: 0; right: 0;"><a href="{% url 'login' %}">Login</a> <a href="{% url 'register' %}">Register</a></p> -->
-
 {% endblock %}
 {% block body %}
 <div style="display: flex;">
@@ -18,8 +16,13 @@
 
             <li style="list-style: none;">
                 <label for="{{fabric}}">
+                    {% if fabric.id in fab_ses %}
+                    <input type="checkbox" name="fabric[]" id="{{fabric}}" value="{{fabric.id}}"
+                        style="display: block-inline;" checked>
+                    {% else %}
                     <input type="checkbox" name="fabric[]" id="{{fabric}}" value="{{fabric.id}}"
                         style="display: block-inline;">
+                    {% endif %}
                     {{fabric}}
 
                 </label>
@@ -34,8 +37,14 @@
 
             <li style="list-style: none;">
                 <label for="{{design}}">
+                    {% if design.id in des_ses %}
+                    <input type="checkbox" name="design[]" id="{{design}}" value="{{design.id}}"
+                        style="display: block-inline;" checked>
+                    {% else %}
                     <input type="checkbox" name="design[]" id="{{design}}" value="{{design.id}}"
                         style="display: block-inline;">
+                    {% endif %}
+
                     {{design}}
 
                 </label>
@@ -50,11 +59,18 @@
             <li style="list-style: none;">
 
 
-            <label for="{{color}}">
-                <input type="checkbox" name="color[]" id="{{color}}" value="{{color.id}}" style="display: block-inline;">
-                {{color}}
+                <label for="{{color}}">
+                    {% if color.id in col_ses %}
+                    <input type="checkbox" name="color[]" id="{{color}}" value="{{color.id}}"
+                        style="display: block-inline;" checked>
+                    {% else %}
+                    <input type="checkbox" name="color[]" id="{{color}}" value="{{color.id}}"
+                        style="display: block-inline;">
+                    {% endif %}
 
-            </label>
+                    {{color}}
+
+                </label>
             </li>
             {% endfor %}
 
@@ -65,14 +81,19 @@
             {% for occ in Occasion %}
             <li style="list-style: none;">
                 <label for="{{occ}}">
-                    <input type="checkbox" name="occ[]" id="{{occ}}" value="{{occ.id}}"
-                        style="display: block-inline;">
+                    {% if occ.id in occ_ses %}
+                    <input type="checkbox" name="occ[]" id="{{occ}}" value="{{occ.id}}" style="display: block-inline;"
+                        checked>
+                    {% else %}
+                    <input type="checkbox" name="occ[]" id="{{occ}}" value="{{occ.id}}" style="display: block-inline;">
+                    {% endif %}
+
                     {{occ}}
 
                 </label>
             </li>
             {% endfor %}
-            <button type="submit">apply</button>
+            <button type="submit">Apply</button>
 
         </ul>
 
@@ -86,6 +107,7 @@
         <a href="{% url 'product' kurta_id=kurta.id %}">
             <div class="product">
                 <img src="{{ kurta.main_image.url }}" alt="Kurta1">
+        
                 <h2>{{kurta.name}}</h2>
                 <p>Price: {{kurta.price}}</p>
             </div>
@@ -94,4 +116,21 @@
     </div>
 
 </div>
-{% endblock %}
+<script>
+    function toggleHeart(button) {
+        button.classList.toggle('active');
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+    const images = document.querySelectorAll(".image");
+
+    let currentIndex = 0;
+    images[currentIndex].classList.add("active");
+
+    setInterval(() => {
+        images[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add("active");
+    }, 3000); // Change image every 3 seconds (adjust as needed)
+});
+</script>
+{% endblock %} 

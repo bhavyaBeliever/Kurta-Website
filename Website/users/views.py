@@ -3,34 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
 from datetime import date, timedelta
-
-from django.urls import reverse
+from django.conf import settings
+from django.http import HttpResponse
 from . import models
+import razorpay
 
-def get_kurtas_by_fabric_ids(fabric_ids):
-    queryset = models.Kurta.objects.all()
-    if fabric_ids:
-        queryset = queryset.filter(fabric_id__in=fabric_ids)
-    kurtas = queryset.all()
-    return kurtas
-def get_kurtas_by_design_ids(design_ids):
-    queryset = models.Kurta.objects.all()
-    if design_ids:
-        queryset = queryset.filter(design_id__in=design_ids)
-    kurtas = queryset.all()
-    return kurtas
-def get_kurtas_by_color_ids(color_ids):
-    queryset = models.Kurta.objects.all()
-    if color_ids:
-        queryset = queryset.filter(color_id__in=color_ids)
-    kurtas = queryset.all()
-    return kurtas
-def get_kurtas_by_occasions_ids(occasions_ids):
-    queryset = models.Kurta.objects.all()
-    if occasions_ids:
-        queryset = queryset.filter(occasions_id__in=occasions_ids)
-    kurtas = queryset.all()
-    return kurtas
 
 def login_view(request):
     if request.method == "POST":
@@ -46,7 +23,6 @@ def login_view(request):
         })
 
     return render(request, "users/login.html")
-
 
 
 def forgetPassword(request):
@@ -69,19 +45,42 @@ def register(request):
 def home(request):
     if request.method=='POST':
         kurtas=models.Kurta.objects.all()
+        if "fabrics" not in request.session:
+            request.session["fabrics"]=[]
+        request.session["fabrics"]=request.POST.getlist('fabric[]')
         fabrics=request.POST.getlist('fabric[]')
         if fabrics != []:                
             kurtas=kurtas.filter(fabric__in=fabrics)
+        for ind in range(len(request.session["fabrics"])):
+            request.session["fabrics"][ind]=int(request.session["fabrics"][ind])
+
+        if "designs" not in request.session:
+            request.session["designs"]=[]
+        request.session["designs"]=request.POST.getlist('design[]')
         designs=request.POST.getlist('design[]')
         if designs != []:            
             kurtas=kurtas.filter(design__in=designs)
+        for ind in range(len(request.session["designs"])):
+            request.session["designs"][ind]=int(request.session["designs"][ind])
+
+        if "colors" not in request.session:
+            request.session["colors"]=[]
+        request.session["colors"]=request.POST.getlist('color[]')
         colors=request.POST.getlist('color[]')
         if colors != []:
             kurtas=kurtas.filter(color__in=colors)
-    
+        for ind in range(len(request.session["colors"])):
+            request.session["colors"][ind]=int(request.session["colors"][ind])
+
+        if "occasions" not in request.session:
+            request.session["occasions"]=[]
+        request.session["occasions"]=request.POST.getlist('occ[]')
         Occasions=request.POST.getlist('occ[]')
         if Occasions != []:
             kurtas=kurtas.filter(Occasion__in=Occasions)
+        for ind in range(len(request.session["occasions"])):
+            request.session["occasions"][ind]=int(request.session["occasions"][ind])
+        print(request.session['occasions'])
         return render(request, 'users/home.html', context={
             "Kurtas":kurtas,
             "userName":request.user.username,
@@ -89,6 +88,11 @@ def home(request):
             "colors": models.Color.objects.all(),
             "Design":models.Design.objects.all(),
             "Occasion":models.festival.objects.all(),
+            "fab_ses":request.session["fabrics"],
+            "des_ses":request.session["designs"],
+            "col_ses":request.session["colors"],
+            "occ_ses":request.session["occasions"]
+
         })
 
     else:
@@ -109,13 +113,13 @@ def product(request, kurta_id):
     try:
         kurta = models.Kurta.objects.get(id=kurta_id)
         if request.method=='POST':
-            quantity = int(request.POST.get('quantity'))
             if not request.user.is_authenticated:
                 return redirect('login')
             action=request.POST.get("action")
             
             if action=="Add-to-Cart":  
                 size=request.POST["size"] 
+                quantity = int(request.POST.get('quantity'))
                 print("Inside Post")
                 if kurta.reduce_size(size=size, quantity=quantity):
                     print(kurta.id,kurta.s)
@@ -161,9 +165,11 @@ def Cart(request, username):
         return render(request,"users/login.html", {
             "message":"Please Login to Add to Cart"
             })
+    
 def logout_view(request):
     logout(request)
     return redirect('home')
+
 def getDeliveryDate():
     today = date.today()
     today_weekday = today.weekday()
@@ -176,16 +182,69 @@ def getDeliveryDate():
     return future_date, future_day
 
 def BuyNow(request, username):
+    
     cartList=models.CartItem.objects.filter(user=request.user)
+    kurtas=[]
+    for cartItems in cartList:
+        kurtas.append(cartItems.kurta)
+
     subtotal=0
     for items in cartList:
         subtotal+=items.quantity*items.kurta.price
     shipping_date, shipping_day=getDeliveryDate()
-    return render(request, "users/BuyNow.html", {
+    total=subtotal+40
+    
+    if request.method=="POST":
+        # if 
+
+        name=request.POST["name"]
+        email=request.POST["email"]
+        address=request.POST["address"]
+        city=request.POST["city"]
+        state=request.POST["state"]
+        zip_code=request.POST["zip_code"]
+        phone=int(request.POST["phone"])
+        order=models.Orders.objects.create(
+            amount=total,
+            name=name,
+            email=email,
+            address=address,
+            city=city,
+            state=state,
+            zip_code=zip_code,
+            phone=phone,
+            shipping_date=shipping_date
+        )
+        order.save()
+        for kurta in kurtas:
+            order.kurtas.add(kurta)
+        
+        for cartItem in cartList:
+            models.CartItem.delete(cartItem)
+        client=razorpay.Client(auth=(settings.KEY, settings.SECRET))
+        payment=client.order.create({'amount':int(total*100), 'currency':'INR'})
+    
+        client=razorpay.Client(auth=(settings.KEY, settings.SECRET))
+        payment=client.order.create({
+            'amount':int(total*100), 'currency':'INR'
+        })
+        print(payment)
+        return render(request, "users/payment.html", {
+            'payment':payment,
+        })
+    else:
+        return render(request, "users/BuyNow.html", {
         "cart_list":cartList,
         "sub_total":subtotal,
         "sdate":shipping_date,
         "sday":shipping_day,
         "ship_price":40,
-        "total":40+subtotal,
-    })
+        "total":total,
+        "message": "Please Enter all fields",
+        })
+def orders(request, username):
+    return render(request, 'users/NotFound.html')
+
+def success(request):
+    payment_id=request.GET.get('order_id')
+    return render(request, "users/success.html")

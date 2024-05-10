@@ -8,14 +8,15 @@
 {% block body %}
 <div>
     <div class="product-info">
-        <img class="image-container"  src="{{kurta.main_image.url}}" alt="Product Image" >
+        <img class="image-container"  src="{{ kurta.main_image.url }}" alt="Product Image" >
         <div class="description-container">
+            <h6>{{message}}</h6>
             <h1>{{ kurta.name }}</h1>
-            <label for="size">Size:</label>
             <p class="description">Elegant kurta with intricate design patterns. Perfect for both casual and formal occasions.</p>
             <p>Price: {{ kurta.price }}</p>
             <p>Fabric: {{ kurta.fabric }}</p>
             <p>Design: {{kurta.design}}</p>
+            <label for="size">Size:</label>
             <form action="{% url 'product' kurta_id=kurta.id %}", method="post">
                 {% csrf_token %}
                 <select id="size" name="size">
@@ -33,13 +34,13 @@
                 </div>
                 <input type="hidden" name="action" value="Add-to-Cart">
                 <button type="submit">Add to Cart</button>
-            </form>
+            <!-- </form>
                 <form action="{% url 'product' kurta_id=kurta.id %}", method="post">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="Buy Now">
                 <button type="submit">Buy Now</button>
 
-            </form>
+            </form> -->
             </div>
     </div>
 </div>

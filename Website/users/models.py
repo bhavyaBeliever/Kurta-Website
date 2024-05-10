@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User,AbstractUser, Group, Permission
 from django.contrib.postgres.fields import JSONField
 
-class CustomUser(AbstractUser):
-    phone_no=models.CharField(max_length=12, null=True)
 class festival(models.Model):
     Type=models.CharField(max_length=50)
     def __str__(self) -> str:
@@ -38,10 +36,10 @@ class Kurta(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # Track creation date/time
     updated_at = models.DateTimeField(auto_now=True)  # Track last update date/time
 
-    s=models.IntegerField(default=1)# stock of respective size
-    m=models.IntegerField(default=1)# stock of respective size
-    l=models.IntegerField(default=1)# stock of respective size
-    xl=models.IntegerField(default=1)# stock of respective size
+    s=models.IntegerField(default=1) # stock of respective size
+    m=models.IntegerField(default=1) # stock of respective size
+    l=models.IntegerField(default=1) # stock of respective size
+    xl=models.IntegerField(default=1) # stock of respective size
     def reduce_size(self, size, quantity):
         match size:
             case 's':
@@ -80,6 +78,9 @@ class Kurta(models.Model):
 
     class Meta:
         verbose_name_plural = "Kurtas"
+class CustomUser(AbstractUser):
+    phone_no=models.CharField(max_length=12, null=True)
+    wishList=models.ManyToManyField(Kurta, null=True)
 
 class CartItem(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="users")
@@ -89,3 +90,18 @@ class CartItem(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Cart - {self.kurta.name}"
   
+class Orders(models.Model):
+    kurtas = models.ManyToManyField(Kurta)
+    amount=models.IntegerField(default=0)
+    name=models.CharField(max_length=90)
+    email=models.CharField(max_length=111)
+    address=models.CharField(max_length=111)
+    city=models.CharField(max_length=111)
+    state=models.CharField(max_length=111)
+    zip_code=models.CharField(max_length=111)
+    phone=models.CharField(max_length=111, default="")
+    shipping_date=models.DateField(null=True)
+    raz_order_id=models.CharField(max_length=100, null=True, blank=True)
+    raz_payment_id=models.CharField(max_length=100, null=True, blank=True)
+    raz_payment_sign=models.CharField(max_length=100, null=True, blank=True)
+

@@ -135,3 +135,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Define the URL prefix for media files
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL="users.CustomUser"
+
+
+
+
+#########################################
+KEY='rzp_test_aldunXRcTjQUZn'
+SECRET='7Z36hMTHRDQ2SmuqrP0vWewm'

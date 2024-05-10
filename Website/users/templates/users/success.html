@@ -1,0 +1,10 @@
+{% extends 'users/layout.html' %}
+{% block body %}
+
+<div class="success-container">
+    <h1>Payment Successful 🎉</h1>
+    <p>Thank you for your purchase!</p>
+    <p>Your transaction has been completed successfully.</p>
+    <a href="{% url 'home' %}" class="btn">Continue Shopping</a>
+</div>
+{% endblock %}
