@@ -351,7 +351,6 @@ h1 span {
 .image-container {
 
   height: auto;
-  display: block;
   width: 100%;
   /* Ensure the image takes the full width of its container */
   max-width: 1200px;
@@ -360,9 +359,9 @@ h1 span {
   flex: 0.8;
   z-index: 0.5;
   /* Ensure image remains visible */
-  border-radius: 50px;    opacity: 0;
+  border-radius: 50px;   
   transition: opacity 0.5s ease;
-  opacity: 0;
+  
   transition: opacity 0.5s ease;
 }
 
@@ -486,7 +485,7 @@ h1 span {
   width: 100%;
   padding: 12px;
   font-size: 17px;
-  background: #27ae60;
+  background: red;
   color: #fff;
   margin-top: 5px;
   cursor: pointer;
@@ -536,8 +535,7 @@ h1 span {
   background-color: #fff;
 }
 .btn {
-  background-color: #4CAF50;
-  color: #cc1d1d;
+  background-color: red;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;

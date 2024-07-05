@@ -2,6 +2,7 @@ __pycache__/
 .idea/
 .vscode/
 *.swp
+.env
 
 # Dependency directories
 venv/

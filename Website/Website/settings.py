@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -140,5 +140,5 @@ AUTH_USER_MODEL="users.CustomUser"
 
 
 #########################################
-KEY='rzp_test_aldunXRcTjQUZn'
-SECRET='7Z36hMTHRDQ2SmuqrP0vWewm'
+KEY=config('KEY')
+SECRET=config('SECRET')
